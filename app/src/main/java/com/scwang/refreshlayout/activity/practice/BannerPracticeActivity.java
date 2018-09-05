@@ -2,6 +2,7 @@ package com.scwang.refreshlayout.activity.practice;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +20,7 @@ import com.google.gson.reflect.TypeToken;
 import com.scwang.refreshlayout.R;
 import com.scwang.refreshlayout.util.StatusBarUtil;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
@@ -59,27 +60,26 @@ public class BannerPracticeActivity extends AppCompatActivity {
         recyclerView.setAdapter(mAdapter);
         final List<Movie> movies = new Gson().fromJson(JSON_MOVIES, new TypeToken<ArrayList<Movie>>() {}.getType());
         mAdapter.replaceData(movies);
-        refreshLayout.autoRefresh();
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh(final RefreshLayout refreshlayout) {
-                refreshlayout.getLayout().postDelayed(new Runnable() {
+            public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
+                refreshLayout.getLayout().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         if (mAdapter.getItemCount() < 2) {
                             List<Movie> movies = new Gson().fromJson(JSON_MOVIES, new TypeToken<ArrayList<Movie>>() {}.getType());
                             mAdapter.replaceData(movies);
                         }
-                        refreshlayout.finishRefresh();
+                        refreshLayout.finishRefresh();
                     }
                 },2000);
             }
         });
-        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
                 mAdapter.addData(movies);
-                refreshlayout.finishLoadmoreWithNoMoreData();
+                refreshLayout.finishLoadMoreWithNoMoreData();
             }
         });
 
@@ -98,7 +98,7 @@ public class BannerPracticeActivity extends AppCompatActivity {
         StatusBarUtil.setPaddingSmart(this, toolbar);
         StatusBarUtil.setPaddingSmart(this, recyclerView);
         StatusBarUtil.setMargin(this, findViewById(R.id.header));
-        StatusBarUtil.setPaddingSmart(this, findViewById(R.id.blurview));
+        StatusBarUtil.setPaddingSmart(this, findViewById(R.id.blurView));
     }
 
     public class QuickAdapter extends BaseQuickAdapter<Movie, BaseViewHolder> {

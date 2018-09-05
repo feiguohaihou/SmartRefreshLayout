@@ -3,6 +3,7 @@ package com.scwang.refreshlayout.activity.style;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -21,7 +22,9 @@ import com.scwang.refreshlayout.adapter.BaseRecyclerAdapter;
 import com.scwang.refreshlayout.adapter.SmartViewHolder;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static android.R.layout.simple_list_item_2;
 import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
@@ -29,16 +32,16 @@ import static android.support.v7.widget.DividerItemDecoration.VERTICAL;
 public class TaurusStyleActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private enum Item {
-        折叠("折叠AppBarLayout，变成正常的列表页面"),
-        展开("展开AppBarLayout，变成可伸展头部的页面"),
-        橙色主题("更改为橙色主题颜色"),
-        红色主题("更改为红色主题颜色"),
-        绿色主题("更改为绿色主题颜色"),
-        蓝色主题("更改为蓝色主题颜色"),
+        折叠(R.string.item_style_app_bar_collapse),
+        展开(R.string.item_style_app_bar_expand),
+        橙色主题(R.string.item_style_theme_orange_abstract),
+        红色主题(R.string.item_style_theme_red_abstract),
+        绿色主题(R.string.item_style_theme_green_abstract),
+        蓝色主题(R.string.item_style_theme_blue_abstract),
         ;
-        public String name;
-        Item(String name) {
-            this.name = name;
+        public int nameId;
+        Item(@StringRes int nameId) {
+            this.nameId = nameId;
         }
     }
 
@@ -69,8 +72,8 @@ public class TaurusStyleActivity extends AppCompatActivity implements AdapterVie
             mRefreshLayout.autoRefresh();//第一次进入触发自动刷新，演示效果
         }
 
-        mAppBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-        mToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+        mToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbarLayout);
 
         View view = findViewById(R.id.recyclerView);
         if (view instanceof RecyclerView) {
@@ -78,18 +81,21 @@ public class TaurusStyleActivity extends AppCompatActivity implements AdapterVie
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.addItemDecoration(new DividerItemDecoration(this, VERTICAL));
             recyclerView.setItemAnimator(new DefaultItemAnimator());
-            recyclerView.setAdapter(new BaseRecyclerAdapter<Item>(Arrays.asList(Item.values()), simple_list_item_2,this) {
+            List<Item> items = new ArrayList<>();
+            items.addAll(Arrays.asList(Item.values()));
+            items.addAll(Arrays.asList(Item.values()));
+            recyclerView.setAdapter(new BaseRecyclerAdapter<Item>(items, simple_list_item_2,this) {
                 @Override
                 protected void onBindViewHolder(SmartViewHolder holder, Item model, int position) {
                     holder.text(android.R.id.text1, model.name());
-                    holder.text(android.R.id.text2, model.name);
+                    holder.text(android.R.id.text2, model.nameId);
                     holder.textColorId(android.R.id.text2, R.color.colorTextAssistant);
                 }
             });
             mRecyclerView = recyclerView;
         }
 
-        /**
+        /*
          * 监听 AppBarLayout 的关闭和开启 给 ActionButton 设置关闭隐藏动画
          */
         mActionButton = (FloatingActionButton) findViewById(R.id.fab);

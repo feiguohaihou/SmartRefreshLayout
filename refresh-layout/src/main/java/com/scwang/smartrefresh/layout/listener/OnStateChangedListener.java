@@ -1,8 +1,15 @@
 package com.scwang.smartrefresh.layout.listener;
 
 
+import android.support.annotation.NonNull;
+import android.support.annotation.RestrictTo;
+
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
+
+import static android.support.annotation.RestrictTo.Scope.LIBRARY;
+import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
+import static android.support.annotation.RestrictTo.Scope.SUBCLASSES;
 
 /**
  * 刷新状态改变监听器
@@ -16,5 +23,6 @@ public interface OnStateChangedListener {
      * @param oldState 改变之前的状态
      * @param newState 改变之后的状态
      */
-    void onStateChanged(RefreshLayout refreshLayout, RefreshState oldState, RefreshState newState);
+    @RestrictTo({LIBRARY,LIBRARY_GROUP,SUBCLASSES})
+    void onStateChanged(@NonNull RefreshLayout refreshLayout, @NonNull RefreshState oldState, @NonNull RefreshState newState);
 }
