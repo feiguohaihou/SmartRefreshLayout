@@ -98,8 +98,8 @@ Please rest assured that I have divided it into three packages, when used to ref
 ## Usage
 #### 1.Add a gradle dependency.
 ```
-compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
-compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-14'//If you use the special Header
+compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-18'
+compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-18'//If you use the special Header
 
 compile 'com.android.support:appcompat-v7:25.3.1'
 
@@ -183,7 +183,7 @@ Note: this method is the lowest priority.
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/padding_common"
+        android:padding="@dimen/dimenPaddingCommon"
         android:background="@android:color/white"
         android:text="@string/description_define_in_xml"/>
     <com.scwang.smartrefresh.layout.footer.ClassicsFooter
@@ -220,6 +220,9 @@ If in the donation message note name, it will be record to the list
 [Donation list](art/md_donationlist.md)
 
 #### blogroll
+[github/dengyuhan](https://github.com/dengyuhan)  
+[github/zrp2017](https://github.com/zrp2017)  
+[github/fly803/BaseProject](https://github.com/fly803/BaseProject)  
 [github/razerdp](https://github.com/razerdp)  
 [github/SuperChenC/s-mvp](https://github.com/SuperChenC/s-mvp)  
 [github/KingJA/LoadSir](https://github.com/KingJA/LoadSir)  
